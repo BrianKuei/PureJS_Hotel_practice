@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="node_modules/lightbox2/src/css/lightbox.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrap rm">
+        <div class="bannerBox room">
+            <div class="logoBox">
+                <h1 class="logo">
+                    <a href="index2.html">White Space</a>
+                </h1>
+            </div>
+            <div class="bigImg">
+            </div>
+            <div class="smallBox">
+            </div>
+        </div>
+        <div class="infoBox">
+            <div class="roomDetail">
+            </div>
+            <div class="roomPriceDate">
+                <div class="price">
+                </div>
+                <div class="date">
+                    <table class="calendar" cellspacing="10">
+                        <tr>
+                            <th class="cursor past"></th>
+                            <th class="tittle" colspan="5"></th>
+                            <th class="cursor future"></th>
+                        </tr>
+                        <tr class="days">
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                    </table>
+                    <div class="reserveTimeBox">
+                        <div class="reserveTime">
+                            <p>預約時段</p>
+                        </div>
+                        <div class="reserveTime delete">
+                            <p>取消時段</p>
+                        </div>
+                    </div>
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <h2>預約時段</h2>
+                            <span>\ \ \</span>
+                            <form action="">
+                                <label>
+                                    姓名
+                                    <input type="text" name="" id="name">
+                                </label>
+                                <label>
+                                    電話
+                                    <input type="text" name="" id="tel">
+                                </label>
+                                <div class="datePicker">
+                                    <p>預約起迄</p>
+                                    <input type="date" name="" id="firstDay">
+                                    <p>~</p>
+                                    <input type="date" name="" id="lastDay">
+                                </div>
+                            </form>
+                            <div class="calDetail">
+                                <p>平日時段<span></span></p>
+                                <p>假日時段<span></span></p>
+                            </div>
+                            <div class="payment">
+                                <!-- = NT.2850 -->
+                            </div>
+                            <div class="cancelAndconfirm">
+                                <div class="cancel">取消</div>
+                                <div class="confirm">確定預約</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="node_modules/lightbox2/src/js/lightbox.js"></script>
+<script src="js/room.js"></script>
+<script src="js/calendar.js"></script>
+
+<script>
+    lightbox.option({
+        'resizeDuration': 200,
+        'disableScrolling': true,
+    })
+</script>
+
+</html>

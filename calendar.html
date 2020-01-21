@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
+    <title>Document</title>
+    <style>
+        .calendar {
+            margin-bottom: 26px;
+            width: 383px;
+            height: 390px;
+            background: #F7F7F7;
+            box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+            vertical-align: bottom;
+            font-size: 0.8em;
+            ;
+        }
+        
+        .tittle {
+            color: #000000;
+            letter-spacing: 1.88px;
+            font-size: 18px;
+            font-family: NotoSansCJKtc-Medium;
+        }
+        
+        .days th {
+            color: #6D7278;
+            letter-spacing: 1.88px;
+            font-size: 18px;
+            font-family: NotoSansCJKtc-DemiLight;
+        }
+        
+        td {
+            color: #6D7278;
+            text-align: center;
+            letter-spacing: 1.46px;
+            font-size: 14px;
+            font-family: NotoSansCJKtc-DemiLight;
+        }
+        
+        .today {
+            color: #F00;
+            font-weight: bold;
+        }
+        
+        .cursor {
+            cursor: pointer;
+        }
+        
+        .past::after {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-bottom: 1px solid black;
+            border-left: 1px solid black;
+            content: "";
+            transform: rotate(45deg);
+        }
+        
+        .future::after {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+            content: "";
+            transform: rotate(315deg);
+        }
+        
+        .calendar .pastDay {
+            color: #C9CCD0;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="calendar" cellspacing="10">
+
+        <tr>
+
+            <th class="cursor past"></th>
+
+            <th class="tittle" colspan="5"></th>
+
+            <th class="cursor future"></th>
+
+        </tr>
+
+        <tr class="days">
+
+            <th>日</th>
+
+            <th>一</th>
+
+            <th>二</th>
+
+            <th>三</th>
+
+            <th>四</th>
+
+            <th>五</th>
+
+            <th>六</th>
+
+        </tr>
+
+        <tr>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+        </tr>
+
+        <tr>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+        </tr>
+
+        <tr>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+        </tr>
+
+        <tr>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+        </tr>
+
+        <tr>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+        </tr>
+
+        <tr>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+            <td> </td>
+
+        </tr>
+
+    </table>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script>
+    let calendar = {
+
+        dayTable: null, //初始化TABLE
+
+        year: null, //初始化年
+
+        month: null, //初始化月份
+
+        selectDay: null,
+
+
+
+        getFirstDay: (year, month) => { //獲取每個月第一天在星期幾
+
+            let firstDay = new Date(year, month, 1);
+            // console.log(firstDay.getDay(), firstDay);
+
+            return firstDay.getDay(); //getDay()方法來獲取，會是一個數值，回傳本地時間星期中的日子（0-6）。
+
+        },
+
+        getMonthLen: (year, month) => { //獲取當月總共有多少天
+
+            let nextMonth = new Date(year, month + 1, 1); //獲取下個月的第一天 
+            // console.log(nextMonth);
+
+            nextMonth.setHours(nextMonth.getHours() - 3); //由於獲取的天是0時,所以減去3小時則可以得出該月的天數，這個會是當月的總小時再用 getDate 去算一共有幾天。
+            // console.log(nextMonth, nextMonth.setHours(nextMonth.getHours() - 3), nextMonth.getDate());
+
+            return nextMonth.getDate(); //返回當天日期
+
+        },
+
+        createCalendar: (form, date) => { //創建日曆方法
+
+            calendar.year = date.getFullYear(); //獲得當時的年份,並賦值到calendar屬性year中,以便別的方法的調用
+
+            calendar.month = date.getMonth(); //跟上面獲取年份的目的一樣
+
+            form.getElementsByTagName('th')[1].innerHTML = calendar.year + '年 ' + (calendar.month + 1) + '月'; //插入年份和月份
+
+            calendar.clearCalendar(form); //清空TABLE
+
+            let monthLen = calendar.getMonthLen(calendar.year, calendar.month); //獲取月份長度
+
+            let firstDay = calendar.getFirstDay(calendar.year, calendar.month); //獲取月份首天為星期幾
+
+            for (let i = 1; i <= monthLen; i++) { //循環寫入每天的值進入TABLE中
+
+                calendar.dayTable[i + firstDay - 1].innerHTML = i; //i為循環值,加上第一天的星期值剛可以對應TABLE位置,但由於數組從0開始算,所以需要減去1
+                // console.log(new Date().getMonth() + " " + calendar.month);
+                if (calendar.month != new Date().getMonth() && calendar.month > new Date().getMonth() && calendar.year == new Date().getFullYear()) {
+
+                    calendar.dayTable[i + firstDay - 1].classList.remove('pastDay');
+                    calendar.dayTable[i + firstDay - 1].classList.remove('today');
+
+                } else if (calendar.month < new Date().getMonth()) {
+
+                    calendar.dayTable[i + firstDay - 1].classList.add('pastDay');
+
+                } else if ((i + firstDay - 4) == new Date().getDate() && calendar.month == new Date().getMonth() && calendar.year == new Date().getFullYear()) { //判斷是否是當天
+
+                    calendar.dayTable[i + firstDay - 1].classList.add('today');
+
+                } else if (calendar.dayTable[i + firstDay - 1].textContent < new Date().getDate() && calendar.month == new Date().getMonth() && calendar.year == new Date().getFullYear()) {
+
+                    calendar.dayTable[i + firstDay - 1].classList.add('pastDay');
+
+                };
+            };
+
+        },
+
+        clearCalendar: (form) => { //清空TABLE方法
+
+            this.dayTable = form.getElementsByTagName('td');
+
+            for (let i = 0; i < this.dayTable.length; i++) {
+
+                this.dayTable[i].innerHTML = ' ';
+
+                this.dayTable[i].id = '';
+
+            }
+
+        },
+
+        init: function(form) { //主方法
+
+            this.dayTable = form.getElementsByTagName('td');
+
+            this.createCalendar(form, new Date());
+
+            let preMon = form.getElementsByTagName('th')[0];
+
+            let nextMon = form.getElementsByTagName('th')[2];
+
+            preMon.onclick = function() { //當點擊左按鈕時,減去一個月,並重繪TABLE
+
+                calendar.createCalendar(form, new Date(calendar.year, calendar.month - 1, 1));
+
+            }
+
+            nextMon.onclick = function() { //當點擊右按鈕時,加上一個月,並重繪TABLE
+
+                calendar.createCalendar(form, new Date(calendar.year, calendar.month + 1, 1));
+
+            }
+
+        }
+    }
+
+    calendar.month
+
+    window.onload = function() {
+
+        let calendars = document.querySelector('.calendar');
+        calendar.init(calendars);
+
+    }
+</script>
+
+</html>
